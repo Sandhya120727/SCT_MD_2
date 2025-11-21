@@ -1,0 +1,21 @@
+import pandas as pd
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+
+# Load dataset
+df = pd.read_csv("/content/Mall_Customers.csv")
+
+# Select features for clustering
+X = df[['Annual Income (k$)', 'Spending Score (1-100)']]
+
+# Apply K-Means
+kmeans = KMeans(n_clusters=5, random_state=0)
+df['Cluster'] = kmeans.fit_predict(X)
+
+# Plot clusters
+plt.figure(figsize=(6,6))
+plt.scatter(X.iloc[:,0], X.iloc[:,1], c=df['Cluster'])
+plt.xlabel("Annual Income (k$)")
+plt.ylabel("Spending Score")
+plt.title("K-Means Clustering of Customers")
+plt.show()
